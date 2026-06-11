@@ -88,7 +88,7 @@
 
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_BIGTREE_SKR_PRO_V1_2
+  #define MOTHERBOARD BOARD_BIGTREE_SKR_PRO_V1_1
 
 #endif
 
