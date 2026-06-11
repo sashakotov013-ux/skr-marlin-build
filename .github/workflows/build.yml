@@ -1,0 +1,43 @@
+name: Build Marlin Cloud
+
+on:
+  workflow_dispatch: # Позволяет запускать сборку вручную кнопкой
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout user configs
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install PlatformIO
+      run: |
+        pip install -U platformio
+
+    - name: Download Marlin Source
+      run: |
+        curl -L -o marlin.zip https://github.com/MarlinFirmware/Marlin/archive/refs/heads/2.1.x.zip
+        unzip marlin.zip
+
+    - name: Inject Custom Configurations
+      run: |
+        cp Configuration.h Marlin-2.1.x/Marlin/Configuration.h
+        cp Configuration_adv.h Marlin-2.1.x/Marlin/Configuration_adv.h
+
+    - name: Compile Firmware
+      run: |
+        cd Marlin-2.1.x
+        pio run -e BIGTREE_SKR_PRO
+
+    - name: Upload Ready Firmware
+      uses: actions/upload-artifact@v4
+      with:
+        name: SKR_Pro_Firmware
+        path: Marlin-2.1.x/.pio/build/BIGTREE_SKR_PRO/*.bin
+        
