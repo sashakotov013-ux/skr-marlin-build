@@ -890,7 +890,7 @@
 
 // Enable one of the options below for CoreXY, CoreXZ, or CoreYZ kinematics,
 // either in the usual order or reversed
-//#define COREXY
+#define COREXY
 //#define COREXZ
 //#define COREYZ
 //#define COREYX
@@ -3410,3 +3410,7 @@
 
 // Disable servo with M282 to reduce power consumption, noise, and heat when not in use
 //#define SERVO_DETACH_GCODE
+
+// --- CUSTOM PIN OVERRIDES ---
+#define HEATER_BED_PIN PD14
+#define HEATER_1_PIN PD15
